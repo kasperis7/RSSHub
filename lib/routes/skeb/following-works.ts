@@ -1,12 +1,13 @@
-import { Data, DataItem, Route } from '@/types';
 import { config } from '@/config';
 import ConfigNotFoundError from '@/errors/types/config-not-found';
+import type { Data, Route } from '@/types';
+
 import { getFollowingsItems } from './utils';
 
 export const route: Route = {
     path: '/following_works/:username',
     categories: ['picture'],
-    example: '/following_works/@brm2_1925',
+    example: '/skeb/following_works/@brm2_1925',
     parameters: { username: 'Skeb Username with @' },
     features: {
         requireConfig: [
@@ -21,6 +22,7 @@ export const route: Route = {
         supportBT: false,
         supportPodcast: false,
         supportScihub: false,
+        nsfw: true,
     },
     name: 'Following Works',
     maintainers: ['SnowAgar25'],
@@ -47,6 +49,6 @@ async function handler(ctx): Promise<Data> {
     return {
         title: `Skeb - ${username} - フォロー中のクリエイターの新着作品`,
         link: `https://skeb.jp/${username}`,
-        item: items as DataItem[],
+        item: items,
     };
 }
